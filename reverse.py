@@ -1,12 +1,12 @@
 __version__ = (0,0,2)
-#meta developer: "скилз еблан, держу в курсе"
+#meta developer: skil3, lite, endy
 from .. import loader, utils
 from telethon.tl.types import Message
 import logging
 
 logger = logging.getLogger(__name__)
 
-def mother_in_konava(message: Message) -> str:
+def get_reply_message(message: Message) -> str:
     if not (message := getattr(message, "message", message)):
         return False
     if len(args := message.split(maxsplit=1)) > 1:
@@ -30,7 +30,7 @@ class ReverseTextMod(loader.Module):
 	async def revcmd(self, message: Message):
 		reply = await message.get_reply_message()
 		try:
-			args = mother_in_konava(reply)
+			args = get_reply_message(reply)
 			rev = list(args)
 			rev.reverse()
 			await utils.answer(message, f'{"".join(rev)}')
